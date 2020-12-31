@@ -1,4 +1,4 @@
-import { List, Input, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
+import { List, Input, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Avatar from '@material-ui/core/Avatar'
@@ -7,7 +7,10 @@ import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from '@material-ui/icons/Cancel'
+
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
   PaperW:{
     margin:'auto',
     width: 1200,
+  },
+  Title:{
+    width:250
   },
   inline: {
     display: 'inline',
@@ -63,61 +69,99 @@ const product2 = {
   featured: true
 }
   return (
-    <div>
     <Paper className={classes.PaperW}>
-        <Typography variant='h3'>
-          Shopping Cart
-        </Typography>
-    {/* <Paper className={classes.Paper}> */}
-    <List className={classes.root}>
+      <Typography variant='h3'>
+        Shopping Cart
+      </Typography>
+    <List>
       <ListItem  >
-        <ListItemAvatar className={classes.ListItem}>
+      <Grid
+        // spacing={1}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+        <ListItemAvatar>
           <Avatar alt="" src={product.img} />
         </ListItemAvatar>
-        <ListItemText
-          className={classes.ListItem}
-          primary={product.title}
-        />
-        <div className={classes.ListItem}>
+        </Grid>
+        <Grid item>
+        <div className={classes.Title}>
+          <ListItemText primary={product.title}/>
+        </div>
+        </Grid>
+        <Grid item>
+          <IconButton>
+            <RemoveIcon />
+          </IconButton>
           <Input
             className={classes.AmountField} 
             type="number" />
-        </div>
-        <Typography
-        className={classes.ListItem}>
+          <IconButton>
+            <AddIcon />
+          </IconButton>
+        </Grid>
+        <Grid item>
+        <Typography>
           ${product.price}
         </Typography>
-        <IconButton edge="end" >
+        </Grid>
+        <Grid item>
+        <IconButton>
           <CancelIcon />
         </IconButton>
+        </Grid>
+      
+      </Grid>
       </ListItem>
 
-      <ListItem >
-        <ListItemAvatar className={classes.ListItem}>
+      <ListItem  >
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+        <ListItemAvatar>
           <Avatar alt="" src={product2.img} />
         </ListItemAvatar>
-        <ListItemText
-          className={classes.ListItem}
-          primary={product2.title}
-        />
-        <div className={classes.ListItem}>
+        </Grid>
+        <Grid item>
+        <div className={classes.Title}>
+          <ListItemText primary={product2.title}/>
+        </div>
+        </Grid>
+        <Grid item>
+          <IconButton>
+            <RemoveIcon />
+          </IconButton>
           <Input
             className={classes.AmountField} 
             type="number" />
-        </div>
-        <Typography
-          className={classes.ListItem}>
+          <IconButton>
+            <AddIcon />
+          </IconButton>
+        </Grid>
+        <Grid item>
+
+        <Typography>
           ${product2.price}
         </Typography>
-
-        <IconButton edge="end">
+        </Grid>
+        <Grid item>
+        <IconButton>
           <CancelIcon />
         </IconButton>
+        </Grid>
+      
+      </Grid>
       </ListItem>
+
       </List>
-      {/* </Paper> */}
     </Paper>
-    </div>
   )
 }
 
