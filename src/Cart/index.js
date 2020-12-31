@@ -17,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
   },
   Paper:{
     width: 800,
+    alignItems: 'center'
   },
   PaperW:{
-    display: 'flex',
-    width: 1200
+    margin:'auto',
+    width: 1200,
   },
   inline: {
     display: 'inline',
@@ -64,15 +65,10 @@ const product2 = {
   return (
     <div>
     <Paper className={classes.PaperW}>
-<span>
-
         <Typography variant='h3'>
           Shopping Cart
         </Typography>
-</span>
-
-
-    <Paper className={classes.Paper}>
+    {/* <Paper className={classes.Paper}> */}
     <List className={classes.root}>
       <ListItem  >
         <ListItemAvatar className={classes.ListItem}>
@@ -119,7 +115,7 @@ const product2 = {
         </IconButton>
       </ListItem>
       </List>
-      </Paper>
+      {/* </Paper> */}
     </Paper>
     </div>
   )
