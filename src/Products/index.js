@@ -9,6 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import SvgCart from './SvgCart'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {ProductsData} from './data'
 import {storeProducts} from '../data'
 import { Button } from '@material-ui/core';
@@ -82,16 +83,15 @@ const Products = () => {
           <GridListTile key={tile.id} cols={/* tile.featured ? 2 :  */1} rows={/* tile.featured ? 2 :  */1}>
             <img src={tile.img} alt={tile.title} />
             <Typography className={clsx(classes.overlay, classes.Left)} variant='h3'>${tile.price}</Typography>
-
             <Button
               className={clsx(classes.overlay, classes.Right)}
               variant="outlined"
               // color='inherit'
-              // to={'/cart'} 
+              // to={'/cart'}
               edge="start"
-              startIcon={<SvgCart />}>
-                add
-              </Button>
+              startIcon={<AddShoppingCartIcon />}>
+              add
+            </Button>
             <GridListTileBar
               classes={{
                 root: classes.titleBar,
