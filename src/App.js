@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import { NaviBar } from './NaviBar'
+import { Products } from './Products'
+import { ProductDetails } from './ProductDetails'
+import { Cart } from './Cart'
+import { Default } from './Default'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <CssBaseline />
+      <div className="App">
+      <NaviBar />
+      <Switch>
+        <Route exact path='/' component={Products} />
+        <Route path='/product_details' component={ProductDetails} />
+        <Route path='/cart' component={Cart} />
+        <Route component={Default} />
+      </Switch>
+      </div>
+    </Router>
   );
 }
 
