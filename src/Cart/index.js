@@ -1,12 +1,11 @@
-import { List, Input, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
+import { useState } from 'react'
+import { List, Divider, TextField, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-
+import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar'
-import CardHeader from '@material-ui/core/CardHeader'
 import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 
-import MoreVertIcon from '@material-ui/icons/MoreVert'
 import CancelIcon from '@material-ui/icons/Cancel'
 
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -24,10 +23,11 @@ const useStyles = makeStyles((theme) => ({
   },
   PaperW:{
     margin:'auto',
-    width: 1200,
+    textAlign: 'center',
+    width: '80%',
   },
   Title:{
-    width:250
+    width:150
   },
   inline: {
     display: 'inline',
@@ -39,11 +39,11 @@ const useStyles = makeStyles((theme) => ({
   ListItem:{
     flexGrow:2
   }
-}));
+}))
 
 const Cart = () => {
   const classes = useStyles();
-const product = {
+  const product = {
   id: 1,
   title: "Google Pixel - Black",
   img: "img/product-1.png",
@@ -54,8 +54,8 @@ const product = {
   inCart: false,
   count: 0,
   total: 0
-}
-const product2 = {
+  }
+  const product2 = {
   id: 5,
   title: "HTC Desire 626s",
   img: "img/product-5.png",
@@ -67,7 +67,8 @@ const product2 = {
   count: 0,
   total: 0,
   featured: true
-}
+  }
+
   return (
     <Paper className={classes.PaperW}>
       <Typography variant='h3'>
@@ -80,8 +81,7 @@ const product2 = {
         container
         direction="row"
         justify="space-between"
-        alignItems="center"
-      >
+        alignItems="center">
         <Grid item>
         <ListItemAvatar>
           <Avatar alt="" src={product.img} />
@@ -93,13 +93,17 @@ const product2 = {
         </div>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton size='small'>
             <RemoveIcon />
           </IconButton>
-          <Input
-            className={classes.AmountField} 
-            type="number" />
-          <IconButton>
+          <TextField type="number"
+              className="AmountField"
+              onInput={(e)=>{ 
+                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
+              }}
+              min={0}
+          />
+          <IconButton size='small'>
             <AddIcon />
           </IconButton>
         </Grid>
@@ -109,21 +113,19 @@ const product2 = {
         </Typography>
         </Grid>
         <Grid item>
-        <IconButton>
+        <IconButton size='small'>
           <CancelIcon />
         </IconButton>
         </Grid>
-      
       </Grid>
       </ListItem>
-
-      <ListItem  >
+      <Divider />
+      <ListItem >
       <Grid
         container
         direction="row"
         justify="space-between"
-        alignItems="center"
-      >
+        alignItems="center">
         <Grid item>
         <ListItemAvatar>
           <Avatar alt="" src={product2.img} />
@@ -135,31 +137,32 @@ const product2 = {
         </div>
         </Grid>
         <Grid item>
-          <IconButton>
+          <IconButton size='small'>
             <RemoveIcon />
           </IconButton>
-          <Input
-            className={classes.AmountField} 
-            type="number" />
-          <IconButton>
+          <TextField type="number"
+              className="AmountField"
+              onInput={(e)=>{ 
+                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
+              }}
+              min={0}
+          />
+          <IconButton size='small'>
             <AddIcon />
           </IconButton>
         </Grid>
         <Grid item>
-
         <Typography>
           ${product2.price}
         </Typography>
         </Grid>
         <Grid item>
-        <IconButton>
+        <IconButton size='small'>
           <CancelIcon />
         </IconButton>
         </Grid>
-      
       </Grid>
       </ListItem>
-
       </List>
     </Paper>
   )
