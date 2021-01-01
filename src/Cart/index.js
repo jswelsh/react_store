@@ -23,18 +23,21 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   PaperW:{
+    marginTop:'48px',
+    paddingLeft:'16px',
+    paddingRight:'16px',
     margin:'auto',
-    textAlign: 'center',
-    width: '80%',
+    // textAlign: 'center',
+    width: '90%',
   },
   Title:{
     width:150
   },
+  Header:{
+    marginLeft:'20px'
+  },
   inline: {
     display: 'inline',
-  },
-  ListItem:{
-    flexGrow:2
   }
 }))
 
@@ -69,143 +72,134 @@ const Cart = () => {
 
   return (
     <Paper className={classes.PaperW}>
-      <Typography variant='h3'>
+    <List>
+      <Typography variant='h5' className={classes.Header} >
         Shopping Cart
       </Typography>
-    <List>
-      <ListItem  >
-      <Grid
-        // spacing={1}
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center">
-        <Grid item>
-        <ListItemAvatar>
-          <Avatar alt="" src={product.img} />
-        </ListItemAvatar>
-        </Grid>
-        <Grid item>
-        <div className={classes.Title}>
-          <ListItemText primary={product.title}/>
-        </div>
-        </Grid>
-        <Grid item>
- {/*          <IconButton size='small'>
-            <RemoveIcon />
-          </IconButton> */}
-          <TextField 
-            type="number"
-            style ={{width: '50px'}}
-            onInput={(e)=>{ 
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
-            }}
-            min={0}
-          />
-{/*           <IconButton size='small'>
-            <AddIcon />
-          </IconButton> */}
-        </Grid>
-        <Grid item>
-        <Typography>
-          ${product.price}
-        </Typography>
-        </Grid>
-        <Grid item>
-        <IconButton size='small'>
-          <CancelIcon />
-        </IconButton>
-        </Grid>
-      </Grid>
-      </ListItem>
-      <Divider />
-      <ListItem >
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center">
-        <Grid item>
-        <ListItemAvatar>
-          <Avatar alt="" src={product2.img} />
-        </ListItemAvatar>
-        </Grid>
-        <Grid item>
-        <div className={classes.Title}>
-          <ListItemText primary={product2.title}/>
-        </div>
-        </Grid>
-        <Grid item>
-{/*           <IconButton size='small'>
-            <RemoveIcon />
-          </IconButton> */}
-          <TextField
-            type="number"
-            style ={{width: '50px'}}
-            onInput={(e)=>{ 
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
-            }}
-            min={0}
-          />
-{/*           <IconButton size='small'>
-            <AddIcon />
-          </IconButton> */}
-        </Grid>
-        <Grid item>
-        <Typography>
-          ${product2.price}
-        </Typography>
-        </Grid>
-        <Grid item>
-        <IconButton size='small'>
-          <CancelIcon />
-        </IconButton>
-        </Grid>
-      </Grid>
-      </ListItem>
-
       <ListItem>
-      <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center">
-      <Grid xs={9} item>
-      <Button
-        color='primary'
-        variant={'outlined'}
-        startIcon={<ArrowBackIcon />} >
-        continue shopping
-      </Button>
-      </Grid>
-      <Grid
-        xs={3}
-        item
-        container
-        spacing={1}
-        direction="row"
-        // justify="space-between"
-        alignItems="center"
-
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center">
+          <Grid item>
+          <ListItemAvatar>
+            <Avatar alt="" src={product.img} />
+          </ListItemAvatar>
+          </Grid>
+          <Grid item>
+          <div className={classes.Title}>
+            <ListItemText primary={product.title}/>
+          </div>
+          </Grid>
+          <Grid item>
+            <TextField 
+              type="number"
+              style ={{width: '50px'}}
+              onInput={(e)=>{ 
+                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)}}
+              min={0}
+            />
+          </Grid>
+          <Grid item>
+          <Typography>
+            ${product.price}
+          </Typography>
+          </Grid>
+          <Grid item>
+          <IconButton size='small'>
+            <CancelIcon />
+          </IconButton>
+          </Grid>
+        </Grid>
+        </ListItem>
+        <Divider />
+        <ListItem >
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center">
+          <Grid item>
+          <ListItemAvatar>
+            <Avatar alt="" src={product2.img} />
+          </ListItemAvatar>
+          </Grid>
+          <Grid item>
+          <div className={classes.Title}>
+            <ListItemText primary={product2.title}/>
+          </div>
+          </Grid>
+          <Grid item>
+            <TextField
+              type="number"
+              style ={{width: '50px'}}
+              onInput={(e)=>{ 
+                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)}}
+              min={0}
+            />
+          </Grid>
+          <Grid item>
+          <Typography>
+            ${product2.price}
+          </Typography>
+          </Grid>
+          <Grid item>
+          <IconButton size='small'>
+            <CancelIcon />
+          </IconButton>
+          </Grid>
+        </Grid>
+        </ListItem>
+              
+        <ListItem>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center">
+        <Grid xs={8} item>
+        <Button
+          color='primary'
+          variant={'outlined'}
+          startIcon={<ArrowBackIcon />} >
+          continue shopping
+        </Button>
+        </Grid>
+        <Grid
+          xs={4}
+          item
+          container
+          spacing={1}
+          direction="row"
+          // justify="space-between"
+          alignItems="center"
         >
         <Grid item>
           <Typography variant="h5" color="primary">Subtotal </Typography>
         </Grid>
-{/*         <Grid item>
-
-        <Divider orientation='vertical' />
-        </Grid> */}
         <Grid item>
-          <Typography variant="h4" color="initial">${cart.reduce((accumulator, current) => current.price + accumulator , 0.00).toFixed(2)}</Typography>
+          <Typography 
+            variant="h4" 
+            color="initial"> 
+            ${cart
+            .reduce(
+              (accumulator, current) => current.price + accumulator , 0.00)
+            .toFixed(2)}
+          </Typography>
         </Grid>
-        
-      </Grid>
-
+        </Grid>
       </Grid>
       </ListItem>
-      </List>
+    </List>
     </Paper>
   )
 }
 
 export { Cart }
+/*            <IconButton size='small'>
+            <AddIcon />
+          </IconButton>  */
+/*           <IconButton size='small'>
+          <RemoveIcon />
+        </IconButton> */
