@@ -14,24 +14,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const gridify = (component) => {
-  return (
-    <Grid item>
-      {component}
-    </Grid>
-  )
-}
 function CartItem({product}) {
   const classes = useStyles()
 
   const components = [(
-    <ListItemAvatar>
-      <Avatar alt="" src={product.img} />
-    </ListItemAvatar>),(
+    <ListItemAvatar children={
+      <Avatar alt="" src={product.img}/>}/>),(
     <div className={classes.Title}>
       <ListItemText primary={product.title} />
     </div>),(
-      <TextField 
+    <TextField 
       type="number" 
       style={{width: '50px'}} onInput={e => {
         e.target.value = Math
@@ -39,22 +31,25 @@ function CartItem({product}) {
         .toString()
         .slice(0, 2)
       }} min={0} />),(
-      <Typography>
-        ${product.price}
-      </Typography>),(
-      <IconButton size='small'>
-        <CancelIcon />
-      </IconButton>)
+      <Typography
+        children={'$'+product.price} />),(
+      <IconButton 
+        children={<CancelIcon />}
+        size='small'/>)
     ]
 
   return (<>
-    <ListItem>
-      <Grid container direction="row" justify="space-between" alignItems="center">
-        {components.map(component => {
-          return gridify(component)})}
-      </Grid>
-    </ListItem>
-    <Divider />
+  <ListItem
+    children={
+    <Grid 
+      container 
+      direction="row" 
+      justify="space-between" 
+      alignItems="center"
+      children={
+        components.map(
+          component => <Grid children={component} item/>)}/>}/>
+  <Divider />
   </>);
 }
 
