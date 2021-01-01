@@ -25,27 +25,27 @@ function CartItem({product}) {
   const classes = useStyles()
 
   const components = [(
-  <ListItemAvatar>
-    <Avatar alt="" src={product.img} />
-  </ListItemAvatar>),(
-  <div className={classes.Title}>
-    <ListItemText primary={product.title} />
-  </div>),(
-    <TextField 
-    type="number" 
-    style={{width: '50px'}} onInput={e => {
-      e.target.value = Math
-      .max(0, parseInt(e.target.value))
-      .toString()
-      .slice(0, 2);
-    }} min={0} />),(
-    <Typography>
-      ${product.price}
-    </Typography>),(
-    <IconButton size='small'>
-      <CancelIcon />
-    </IconButton>)
-  ]
+    <ListItemAvatar>
+      <Avatar alt="" src={product.img} />
+    </ListItemAvatar>),(
+    <div className={classes.Title}>
+      <ListItemText primary={product.title} />
+    </div>),(
+      <TextField 
+      type="number" 
+      style={{width: '50px'}} onInput={e => {
+        e.target.value = Math
+        .max(0, parseInt(e.target.value))
+        .toString()
+        .slice(0, 2)
+      }} min={0} />),(
+      <Typography>
+        ${product.price}
+      </Typography>),(
+      <IconButton size='small'>
+        <CancelIcon />
+      </IconButton>)
+    ]
 
   return (<>
     <ListItem>

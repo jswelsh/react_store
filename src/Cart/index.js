@@ -10,7 +10,6 @@ import { CartItem } from './CartItem'
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   Paper:{
@@ -18,16 +17,20 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft:'16px',
     paddingRight:'16px',
     margin:'auto',
-    // textAlign: 'center',
     width: '90%',
   },
   Header:{
     marginLeft:'20px'
   }
 }))
-
-const Cart = () => {
-  const classes = useStyles()
+/* 
+export function gridify (component) {
+  return (
+    <Grid item>
+      {component}
+    </Grid>
+  )
+} */
   const product = {
   id: 1,
   title: "Google Pixel - Black",
@@ -55,15 +58,18 @@ const Cart = () => {
   }
   const cart = [product,product2]
 
+const Cart = () => {
+  const classes = useStyles()
+  
   return (
-    <Paper className={classes.Paper}>
+  <Paper className={classes.Paper}>
     <List>
-      <Typography variant='h5' className={classes.Header} >
-        Shopping Cart
-      </Typography>
-      { cart.map(product => {
-        return <CartItem product={product} />
-      })}
+      <Typography
+        children='Shopping Cart'
+        variant='h5'
+        className={classes.Header}/>
+      {cart.map(product => {
+        return <CartItem product={product}/>})}
         <ListItem>
         <Grid
           container
@@ -71,12 +77,11 @@ const Cart = () => {
           justify="space-between"
           alignItems="center">
         <Grid xs={8} item>
-        <Button
-          color='primary'
-          variant={'outlined'}
-          startIcon={<ArrowBackIcon />} >
-          continue shopping
-        </Button>
+          <Button
+            color='primary'
+            variant={'outlined'}
+            children='continue shopping'
+            startIcon={<ArrowBackIcon />}/>
         </Grid>
         <Grid
           xs={4}
@@ -85,33 +90,29 @@ const Cart = () => {
           spacing={1}
           direction="row"
           // justify="space-between"
-          alignItems="center"
-        >
-        <Grid item>
-          <Typography variant="h5" color="primary">Subtotal </Typography>
-        </Grid>
-        <Grid item>
+          alignItems="center">
+          <Grid item>
           <Typography 
-            variant="h4" 
-            color="initial"> 
-            ${cart
-            .reduce(
-              (accumulator, current) => current.price + accumulator , 0.00)
-            .toFixed(2)}
-          </Typography>
-        </Grid>
+            children='Subtotal'
+            variant="h5" 
+            color="primary"/>
+          </Grid>
+          <Grid item>
+            <Typography 
+              variant="h4" 
+              color="initial"> 
+              ${cart
+              .reduce((accumulator, current) => (
+                current.price + accumulator) , 0.00)
+              .toFixed(2)}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
       </ListItem>
     </List>
-    </Paper>
+  </Paper>
   )
 }
 
 export { Cart }
-/*            <IconButton size='small'>
-            <AddIcon />
-          </IconButton>  */
-/*           <IconButton size='small'>
-          <RemoveIcon />
-        </IconButton> */
