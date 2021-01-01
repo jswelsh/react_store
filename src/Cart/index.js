@@ -1,16 +1,12 @@
 import { useState } from 'react'
 import { List, Divider, Button, TextField, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CancelIcon from '@material-ui/icons/Cancel'
-
-import RemoveIcon from '@material-ui/icons/Remove';
-import AddIcon from '@material-ui/icons/Add'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,9 +79,8 @@ const Cart = () => {
           justify="space-between"
           alignItems="center">
           <Grid item>
-          <ListItemAvatar>
-            <Avatar alt="" src={product.img} />
-          </ListItemAvatar>
+          <ListItemAvatar children={
+            <Avatar alt="" src={product.img} />}/>
           </Grid>
           <Grid item>
           <div className={classes.Title}>
