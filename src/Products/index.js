@@ -15,7 +15,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {ProductsData} from './data'
 import {storeProducts} from '../data'
 import { Button } from '@material-ui/core';
-
+import {Product} from './Product'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,20 +65,14 @@ const ColorButton = withStyles((theme) => ({
       // backgroundColor: blue[700],
     },
   },
-}))(Button);
+}))(Button)
 
 const Products = () => {
-  const classes = useStyles();
-  const [products, setProducts] = useState(storeProducts)
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
       <div className={classes.Title}>
-{/*       
-        {(val) => {
-          console.table()
-        }}
-      */}
       <Typography  variant="h1"> Products</Typography>
       </div>
       <GridList cellHeight={400} /* cols={3} rows={2} */ className={classes.gridList}>
@@ -86,42 +80,10 @@ const Products = () => {
           <ListSubheader component="div">Phones</ListSubheader>
         </GridListTile> */}
         <ProductConsumer>
-          {(value) =>
-        value.products.map((tile) => (
-          <GridListTile key={tile.id} cols={/* tile.featured ? 2 :  */1} rows={/* tile.featured ? 2 :  */1}>
-            <img src={tile.img} alt={tile.title} />
-            <Typography className={clsx(classes.overlay, classes.Left)} variant='h3'>${tile.price}</Typography>
-            <Button
-              className={clsx(classes.overlay, classes.Right)}
-              variant="outlined"
-              // color='inherit'
-              // to={'/cart'}
-              edge="start"
-              startIcon={<AddShoppingCartIcon />}>
-              add
-            </Button>
-            <GridListTileBar
-              classes={{
-                root: classes.titleBar,
-                title: classes.TileTitle,
-              }}
-              title={
-                <Typography variant='h5'>
-                  {tile.title}
-                </Typography>}
-                subtitle={
-                <Typography variant='subtitle2'> </Typography>}
-                
-            /*               subtitle={   
-                <Typography variant='subtitle2'>Company: {tile.company}</Typography>} */
-              actionIcon={
-                //refactor this all too SvgCart!
-                <ColorButton variant="outlined">
-                  details
-                </ColorButton>
-              }
-            />
-          </GridListTile>
+          {(contextStore) =>
+          contextStore.products.map((product) => (
+          <Product 
+            product={product}/>
         ))}
         </ProductConsumer>
       </GridList>

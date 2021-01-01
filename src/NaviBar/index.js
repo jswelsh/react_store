@@ -29,32 +29,31 @@ const NaviBar = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Link 
-        size='large'
-        component={Button} 
+        <Button
+        component={Link}
         color="inherit"
-        to={'/'} 
-        edge="start" 
+        to={'/'}
+        edge="start"
         aria-label="menu"
         startIcon={ <SvgBrushFireIcon /> }>
           <Typography variant="h6">
             brushfire
           </Typography>
-        </Link>
+        </Button>
         
         <div className={classes.toolbarButtons}>
         {/* <IconButton onClick={() => handleThemeChange()}> */}
           {/* {darkState ? <Brightness4Icon/> : <Brightness7Icon/>} */}
         {/* </IconButton> */}
-        <Link  
-          component={Button} 
+        <Button
+          component={Link}
           variant="outlined"
           color='inherit'
-          to={'/cart'} 
-          edge="start"
+          to={'/cart'}
+          // edge="start"
           startIcon={<SvgCart />}
           > cart
-        </Link>
+        </Button>
 {/*         <LinkItem
           component={IconButton}
           color='inherit'
