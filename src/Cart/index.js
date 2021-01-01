@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { List, Divider, TextField, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
+import { List, Divider, Button, TextField, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CancelIcon from '@material-ui/icons/Cancel'
 
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -31,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inline: {
     display: 'inline',
-  },
-  AmountField: {
-    // flexGrow:1
-    width:40
   },
   ListItem:{
     flexGrow:2
@@ -68,6 +65,7 @@ const Cart = () => {
   total: 0,
   featured: true
   }
+  const cart = [product,product2]
 
   return (
     <Paper className={classes.PaperW}>
@@ -93,19 +91,20 @@ const Cart = () => {
         </div>
         </Grid>
         <Grid item>
-          <IconButton size='small'>
+ {/*          <IconButton size='small'>
             <RemoveIcon />
-          </IconButton>
-          <TextField type="number"
-              className="AmountField"
-              onInput={(e)=>{ 
-                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
-              }}
-              min={0}
+          </IconButton> */}
+          <TextField 
+            type="number"
+            style ={{width: '50px'}}
+            onInput={(e)=>{ 
+                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
+            }}
+            min={0}
           />
-          <IconButton size='small'>
+{/*           <IconButton size='small'>
             <AddIcon />
-          </IconButton>
+          </IconButton> */}
         </Grid>
         <Grid item>
         <Typography>
@@ -137,19 +136,20 @@ const Cart = () => {
         </div>
         </Grid>
         <Grid item>
-          <IconButton size='small'>
+{/*           <IconButton size='small'>
             <RemoveIcon />
-          </IconButton>
-          <TextField type="number"
-              className="AmountField"
-              onInput={(e)=>{ 
-                  e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
-              }}
-              min={0}
+          </IconButton> */}
+          <TextField
+            type="number"
+            style ={{width: '50px'}}
+            onInput={(e)=>{ 
+                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)
+            }}
+            min={0}
           />
-          <IconButton size='small'>
+{/*           <IconButton size='small'>
             <AddIcon />
-          </IconButton>
+          </IconButton> */}
         </Grid>
         <Grid item>
         <Typography>
@@ -161,6 +161,46 @@ const Cart = () => {
           <CancelIcon />
         </IconButton>
         </Grid>
+      </Grid>
+      </ListItem>
+
+      <ListItem>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center">
+      <Grid xs={9} item>
+      <Button
+        color='primary'
+        variant={'outlined'}
+        startIcon={<ArrowBackIcon />} >
+        continue shopping
+      </Button>
+      </Grid>
+      <Grid
+        xs={3}
+        item
+        container
+        spacing={1}
+        direction="row"
+        // justify="space-between"
+        alignItems="center"
+
+        >
+        <Grid item>
+          <Typography variant="h5" color="primary">Subtotal </Typography>
+        </Grid>
+{/*         <Grid item>
+
+        <Divider orientation='vertical' />
+        </Grid> */}
+        <Grid item>
+          <Typography variant="h4" color="initial">${cart.reduce((accumulator, current) => current.price + accumulator , 0.00).toFixed(2)}</Typography>
+        </Grid>
+        
+      </Grid>
+
       </Grid>
       </ListItem>
       </List>
