@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import {ProductConsumer} from '../context'
+
 import clsx from 'clsx';
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors';
@@ -72,14 +74,20 @@ const Products = () => {
   return (
     <div className={classes.root}>
       <div className={classes.Title}>
-
+{/*       
+        {(val) => {
+          console.table()
+        }}
+      */}
       <Typography  variant="h1"> Products</Typography>
       </div>
       <GridList cellHeight={400} /* cols={3} rows={2} */ className={classes.gridList}>
 {/*         <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           <ListSubheader component="div">Phones</ListSubheader>
         </GridListTile> */}
-        {products.map((tile) => (
+        <ProductConsumer>
+          {(value) =>
+        value.products.map((tile) => (
           <GridListTile key={tile.id} cols={/* tile.featured ? 2 :  */1} rows={/* tile.featured ? 2 :  */1}>
             <img src={tile.img} alt={tile.title} />
             <Typography className={clsx(classes.overlay, classes.Left)} variant='h3'>${tile.price}</Typography>
@@ -104,7 +112,7 @@ const Products = () => {
                 subtitle={
                 <Typography variant='subtitle2'> </Typography>}
                 
-/*               subtitle={   
+            /*               subtitle={   
                 <Typography variant='subtitle2'>Company: {tile.company}</Typography>} */
               actionIcon={
                 //refactor this all too SvgCart!
@@ -115,6 +123,7 @@ const Products = () => {
             />
           </GridListTile>
         ))}
+        </ProductConsumer>
       </GridList>
     </div>
   )
