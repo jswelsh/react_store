@@ -1,44 +1,37 @@
-import { useState } from 'react'
-import { List, Divider, Button, TextField, ListItem, ListItemAvatar, ListItemText, Typography, Grid } from '@material-ui/core'
+// import { useState } from 'react'
+import { List, Button, ListItem, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
+
 import Paper from '@material-ui/core/Paper'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import CancelIcon from '@material-ui/icons/Cancel'
+
+import { CartItem } from './CartItem'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    // maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   Paper:{
-    width: 800,
-    alignItems: 'center'
-  },
-  PaperW:{
     marginTop:'48px',
     paddingLeft:'16px',
     paddingRight:'16px',
     margin:'auto',
-    // textAlign: 'center',
     width: '90%',
-  },
-  Title:{
-    width:150
   },
   Header:{
     marginLeft:'20px'
-  },
-  inline: {
-    display: 'inline',
   }
 }))
-
-const Cart = () => {
-  const classes = useStyles();
+/* 
+export function gridify (component) {
+  return (
+    <Grid item>
+      {component}
+    </Grid>
+  )
+} */
   const product = {
   id: 1,
   title: "Google Pixel - Black",
@@ -66,87 +59,19 @@ const Cart = () => {
   }
   const cart = [product,product2]
 
+const Cart = () => {
+  const classes = useStyles()
+  
   return (
-    <Paper className={classes.PaperW}>
+  <Paper className={classes.Paper}>
     <List>
-      <Typography variant='h5' className={classes.Header} >
-        Shopping Cart
-      </Typography>
-      <ListItem>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center">
-          <Grid item>
-          <ListItemAvatar children={
-            <Avatar alt="" src={product.img} />}/>
-          </Grid>
-          <Grid item>
-          <div className={classes.Title}>
-            <ListItemText primary={product.title}/>
-          </div>
-          </Grid>
-          <Grid item>
-            <TextField 
-              type="number"
-              style ={{width: '50px'}}
-              onInput={(e)=>{ 
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)}}
-              min={0}
-            />
-          </Grid>
-          <Grid item>
-          <Typography>
-            ${product.price}
-          </Typography>
-          </Grid>
-          <Grid item>
-          <IconButton size='small'>
-            <CancelIcon />
-          </IconButton>
-          </Grid>
-        </Grid>
-        </ListItem>
-        <Divider />
-        <ListItem >
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center">
-          <Grid item>
-          <ListItemAvatar>
-            <Avatar alt="" src={product2.img} />
-          </ListItemAvatar>
-          </Grid>
-          <Grid item>
-          <div className={classes.Title}>
-            <ListItemText primary={product2.title}/>
-          </div>
-          </Grid>
-          <Grid item>
-            <TextField
-              type="number"
-              style ={{width: '50px'}}
-              onInput={(e)=>{ 
-                e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,2)}}
-              min={0}
-            />
-          </Grid>
-          <Grid item>
-          <Typography>
-            ${product2.price}
-          </Typography>
-          </Grid>
-          <Grid item>
-          <IconButton size='small'>
-            <CancelIcon />
-          </IconButton>
-          </Grid>
-        </Grid>
-        </ListItem>
-              
+
+      <Typography
+        children='Shopping Cart'
+        variant='h5'
+        className={classes.Header}/>
+      {cart.map(product => {
+        return <CartItem product={product}/>})}
         <ListItem>
         <Grid
           container
@@ -154,12 +79,11 @@ const Cart = () => {
           justify="space-between"
           alignItems="center">
         <Grid xs={8} item>
-        <Button
-          color='primary'
-          variant={'outlined'}
-          startIcon={<ArrowBackIcon />} >
-          continue shopping
-        </Button>
+          <Button
+            color='primary'
+            variant={'outlined'}
+            children='continue shopping'
+            startIcon={<ArrowBackIcon />}/>
         </Grid>
         <Grid
           xs={4}
@@ -168,33 +92,29 @@ const Cart = () => {
           spacing={1}
           direction="row"
           // justify="space-between"
-          alignItems="center"
-        >
-        <Grid item>
-          <Typography variant="h5" color="primary">Subtotal </Typography>
-        </Grid>
-        <Grid item>
+          alignItems="center">
+          <Grid item>
           <Typography 
-            variant="h4" 
-            color="initial"> 
-            ${cart
-            .reduce(
-              (accumulator, current) => current.price + accumulator , 0.00)
-            .toFixed(2)}
-          </Typography>
-        </Grid>
+            children='Subtotal'
+            variant="h5" 
+            color="primary"/>
+          </Grid>
+          <Grid item>
+            <Typography 
+              variant="h4" 
+              color="initial"> 
+              ${cart
+              .reduce((accumulator, current) => (
+                current.price + accumulator) , 0.00)
+              .toFixed(2)}
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
       </ListItem>
     </List>
-    </Paper>
+  </Paper>
   )
 }
 
 export { Cart }
-/*            <IconButton size='small'>
-            <AddIcon />
-          </IconButton>  */
-/*           <IconButton size='small'>
-          <RemoveIcon />
-        </IconButton> */
