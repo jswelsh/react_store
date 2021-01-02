@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import {ProductProvider} from './context'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -13,10 +14,24 @@ import { ProductDetails } from './ProductDetails'
 import { Cart } from './Cart'
 import { Default } from './Default'
 
+const theme = createMuiTheme({
+  overrides: {
+    MuiButton: {
+      root: {
+        borderRadius:36,
+      },
+      label:{
+        padding:4
 
+      } 
+    }, 
+  }, 
+}) 
 function App() {
   return (
     <ProductProvider>
+      <ThemeProvider theme={theme}>
+
       <Router>
         <CssBaseline />
         <div className="App">
@@ -29,6 +44,7 @@ function App() {
         </Switch>
         </div>
       </Router>
+      </ThemeProvider>
     </ProductProvider>
   );
 }

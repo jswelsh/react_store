@@ -1,6 +1,6 @@
 
 import {Link} from 'react-router-dom'
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {ProductConsumer} from '../context'
 import { Grid, Typography, Container, Button } from '@material-ui/core'
 
@@ -43,11 +43,22 @@ const ProductDetails = () => {
               variant='body1'
               children={value.detailProduct.info}/>}/>
               <Grid item container justify="space-between" children={<>
-                <Button 
+                <Button
+                  style={{ margin: 8, padding:12}}
+                  variant={value.detailProduct.inCart ? 'contained' : 'text'}
+                  color={value.detailProduct.inCart ? 'primary' : 'default'}
                   children='back to products'
                   component={Link}
                   to={'/'}/>
-                <Button variant='contained' color='primary' children='add to cart' /> </>}/>
+                <Button
+                  style={{ margin: 8, padding:12}}
+                  disabled={value.detailProduct.inCart}
+                  variant='contained'
+                  color='primary'
+                  // fullWidth={true}
+                  startIcon={<AddShoppingCartIcon />}
+                  children={value.detailProduct.inCart ? 'already in cart' : 'add to cart'}/> 
+                  </>}/>
           </Grid>
           </Container>
         </Grid>
