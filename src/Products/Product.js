@@ -11,46 +11,46 @@ import {
   Button,
   Typography,
   GridListTileBar,
-  GridListTile 
+  GridListTile, 
+  IconButton
 } from '@material-ui/core'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow:1,
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
-  },
   Title: {
-    width:'100%',
+    // width:'100%',
     textAlign: 'center'
   },
   overlay: {
     position: 'absolute',
     top: '5px',
-    color: theme.palette.primary.main,
   },
   Right: {
     right: '15px',
+    color:'white',
+    background:'rgba(63, 81, 181,0.8)',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+      boxShadow: 'none',
+    },
   },
   Left: {
+    color: theme.palette.primary.main,
     left: '15px',
   },
-  gridList: {
-    width: 800,
-  },
   titleBar: {
-    padding:10,
+    padding:8,
     background: 'rgba(63, 81, 181,0.8)',  
   },
+  GridListTile: {
+    margin:16
+  }
 }))
-
 const ColorButton = withStyles((theme) => ({
   root: {
+    marginRight: 16,
     color: theme.palette.getContrastText(blue[500])
   },
 }))(Button)
@@ -61,20 +61,21 @@ const Product = ({product}) => {
 
   return (
   <GridListTile
+    className={classes.GridListTile}
     key={id}
     onClick={() => console.log('hello')}
     cols={1}
-    rows={1}> {/* product.featured ? 2 : 1 */}
+    rows={1}
+    > {/* product.featured ? 2 : 1 */}
     <img src={img} alt={title} />
     <Typography
       children={'$'+price}
       className={clsx(classes.overlay, classes.Left)}
       variant='h3'/>
-    <Button
-      children='add'
-      variant="outlined"
+    <IconButton
+      children={<AddShoppingCartIcon />}
+      variant="contained"
       disabled={inCart}
-      edge="start" startIcon={<AddShoppingCartIcon />}
       className={clsx(
         classes.overlay,
         classes.Right)}/>
@@ -94,7 +95,6 @@ const Product = ({product}) => {
         <ColorButton
           children='details'
           variant="outlined"/></Link>}/>
-          
   </GridListTile>
   )
 }
