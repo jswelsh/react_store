@@ -57,17 +57,17 @@ const Products = () => {
   return (
     <div className={classes.root}>
       <div className={classes.Title}>
-      <Typography  variant="h1"> Products</Typography>
+      <Typography children='Products' variant="h1"/>
       </div>
-      <GridList 
+      <GridList
         cellHeight={400}
         className={classes.gridList}>
         <ProductConsumer>
           {(contextStore) =>
           contextStore.products.map((product) => (
           <Product
-            product={product}/>
-        ))}
+            product={product} />))
+          }
         </ProductConsumer>
       </GridList>
     </div>
