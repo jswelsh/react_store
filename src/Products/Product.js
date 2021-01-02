@@ -1,6 +1,7 @@
 import React from "react"
 import clsx from 'clsx'
 import { Link } from "react-router-dom"
+import {ProductConsumer} from '../context'
 
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors'
@@ -60,14 +61,21 @@ const Product = ({product}) => {
   const {title, price, img, id, inCart} = product
 
   return (
+  <ProductConsumer> 
+  {value => (
   <GridListTile
     className={classes.GridListTile}
     key={id}
-    onClick={() => console.log('hello')}
     cols={1}
-    rows={1}
-    > {/* product.featured ? 2 : 1 */}
-    <img src={img} alt={title} />
+    rows={1}>
+    <Link 
+      to='/product_details'
+      children={ 
+      <img
+        onClick={() => {
+        value.handleDetail(id) }}
+        src={img}
+        alt={title}/>}/>
     <Typography
       children={'$'+price}
       className={clsx(classes.overlay, classes.Left)}
@@ -83,19 +91,21 @@ const Product = ({product}) => {
       classes={{
         root: classes.titleBar,
         title: classes.TileTitle}} 
-      title={
+        title={
         <Typography
           children={title}
           variant='h5'/>}
-      subtitle={<Typography />}
-      actionIcon={
-        <Link
-          style={{ textDecoration: 'none' }}
-          to='/product_details'>
+          subtitle={<Typography />}
+          actionIcon={
+          <Link
+            style={{ textDecoration: 'none' }}
+            to='/product_details'>
         <ColorButton
           children='details'
           variant="outlined"/></Link>}/>
   </GridListTile>
+  )}
+  </ProductConsumer>
   )
 }
 
