@@ -1,8 +1,11 @@
 import React from "react"
 import clsx from 'clsx'
+import { Link } from "react-router-dom"
 
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors'
+
+import PropTypes from 'prop-types'
 
 import {
   Button,
@@ -12,7 +15,6 @@ import {
 } from '@material-ui/core'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,19 +57,23 @@ const ColorButton = withStyles((theme) => ({
 
 const Product = ({product}) => {
   const classes = useStyles()
+  const {title, price, img, id, inCart} = product
 
   return (
   <GridListTile
-    key={product.id}
-    cols={1} rows={1}> {/* product.featured ? 2 : 1 */}
-    <img src={product.img} alt={product.title} />
+    key={id}
+    onClick={() => console.log('hello')}
+    cols={1}
+    rows={1}> {/* product.featured ? 2 : 1 */}
+    <img src={img} alt={title} />
     <Typography
-      children={'$'+product.price}
+      children={'$'+price}
       className={clsx(classes.overlay, classes.Left)}
       variant='h3'/>
     <Button
       children='add'
       variant="outlined"
+      disabled={inCart}
       edge="start" startIcon={<AddShoppingCartIcon />}
       className={clsx(
         classes.overlay,
@@ -78,15 +84,29 @@ const Product = ({product}) => {
         title: classes.TileTitle}} 
       title={
         <Typography
-          children={product.title}
+          children={title}
           variant='h5'/>}
       subtitle={<Typography />}
       actionIcon={
+        <Link
+          style={{ textDecoration: 'none' }}
+          to='/product_details'>
         <ColorButton
           children='details'
-          variant="outlined"/>}/>
+          variant="outlined"/></Link>}/>
+          
   </GridListTile>
   )
 }
 
 export {Product}
+
+Product.propTypes = {
+  product:PropTypes.shape({
+    id:PropTypes.number,
+    img:PropTypes.string,
+    title:PropTypes.string,
+    price:PropTypes.number,
+    inCart:PropTypes.bool
+  })
+}

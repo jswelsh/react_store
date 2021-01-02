@@ -24,14 +24,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft:'20px'
   }
 }))
-/* 
-export function gridify (component) {
-  return (
-    <Grid item>
-      {component}
-    </Grid>
-  )
-} */
   const product = {
   id: 1,
   title: "Google Pixel - Black",
@@ -65,7 +57,6 @@ const Cart = () => {
   return (
   <Paper className={classes.Paper}>
     <List>
-
       <Typography
         children='Shopping Cart'
         variant='h5'
@@ -78,38 +69,35 @@ const Cart = () => {
           direction="row"
           justify="space-between"
           alignItems="center">
-        <Grid xs={8} item>
+        <Grid xs={8} item children={
           <Button
             color='primary'
             variant={'outlined'}
             children='continue shopping'
             startIcon={<ArrowBackIcon />}/>
-        </Grid>
+        }/>
         <Grid
           xs={4}
           item
           container
           spacing={1}
           direction="row"
-          // justify="space-between"
-          alignItems="center">
-          <Grid item>
-          <Typography 
-            children='Subtotal'
-            variant="h5" 
-            color="primary"/>
-          </Grid>
-          <Grid item>
+          alignItems="center"
+          children={<>
+          <Grid item children={
             <Typography 
-              variant="h4" 
-              color="initial"> 
-              ${cart
+              children='Subtotal'
+              variant="h5" 
+              color="primary"/>}/>
+          <Grid item children={
+            <Typography
+              variant="h4"
+              color="initial"
+              chidlren={'$'+ cart
               .reduce((accumulator, current) => (
                 current.price + accumulator) , 0.00)
-              .toFixed(2)}
-            </Typography>
-          </Grid>
-        </Grid>
+              .toFixed(2)}/>}/>
+        </>}/>
       </Grid>
       </ListItem>
     </List>
