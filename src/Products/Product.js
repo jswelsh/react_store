@@ -94,7 +94,6 @@ const Product = ({product}) => {
         <ColorButton
           children='details'
           variant="outlined"/></Link>}/>
-          
   </GridListTile>
   )
 }

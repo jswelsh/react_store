@@ -45,11 +45,6 @@ const useStyles = makeStyles((theme) => ({
     background: 'rgba(63, 81, 181,0.8)'
   },
 }))
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText(blue[500]),
-  },
-}))(Button)
 
 const Products = () => {
   const classes = useStyles()

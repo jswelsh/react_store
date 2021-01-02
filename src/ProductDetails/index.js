@@ -1,26 +1,65 @@
-import Avatar from '@material-ui/core/Avatar'
-import CardHeader from '@material-ui/core/CardHeader'
-import IconButton from '@material-ui/core/IconButton'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import Button from '@material-ui/core/Button'
+
 import {Link} from 'react-router-dom'
 
 import {ProductConsumer} from '../context'
-import { Typography } from '@material-ui/core'
+import { Grid, Typography, Container, Button } from '@material-ui/core'
 
 const ProductDetails = () => {
   return (
-      <Typography>
-    <ProductConsumer>
-      {value =>
-      value.detailProduct.company}
-    </ProductConsumer>
-      </Typography>
+  <ProductConsumer>
+    {value => (
+      // {console.log(value.detailProduct.img)}
+    <Grid
+      container
+      justify="center"
+      alignItems="center">
+        <Grid item>
+          <img  src={value.detailProduct.img} alt={value.detailProduct.title} />
+        </Grid>
+        <Grid md={6} item >
+          <Container maxWidth="md">
+          <Grid
+            container
+            direction='column'
+            justify="center"
+            alignItems="center" >
+            <Grid item children={
+            <Typography
+              color='textPrimary'
+              variant='h4'
+              children={value.detailProduct.title}/>}/>
+            <Grid item children={
+            <Typography
+              color='primary'
+              variant='subtitle1'
+              children={'Price: $'+value.detailProduct.price}/>}/>
+            <Grid item children={
+            <Typography
+              variant='subtitle2'
+              children={'Product Info:'}/>}/>
+            <Grid item children={
+            <Typography
+              color='textSecondary'
+              variant='body1'
+              children={value.detailProduct.info}/>}/>
+              <Grid item container justify="space-between" children={<>
+                <Button 
+                  children='back to products'
+                  component={Link}
+                  to={'/'}/>
+                <Button variant='contained' color='primary' children='add to cart' /> </>}/>
+          </Grid>
+          </Container>
+        </Grid>
+    </Grid>
+    )}
+  </ProductConsumer>
   )
 }
 
 export { ProductDetails }
-
+/*       {value =>
+      value.detailProduct.company} */
 /* 
 company: "google"
 count: 0
