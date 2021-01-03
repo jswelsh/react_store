@@ -43,7 +43,7 @@ class ProductProvider extends React.Component {
     products: [],
     detailProduct: detailProduct,
     cart: [],
-    modalOpen: false,
+    modalOpen: true,
     modalProduct: detailProduct,
     cartSubTotal: 0,
     cartTax: 0,
