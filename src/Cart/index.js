@@ -3,7 +3,7 @@ import { List, Button, ListItem, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {ProductConsumer} from '../context'
 import { Link } from "react-router-dom"
-
+import CartTotals from './CartTotals'
 import Paper from '@material-ui/core/Paper'
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -32,10 +32,11 @@ const Cart = () => {
   const classes = useStyles()
   
   return (
-  <ProductConsumer>
+    <ProductConsumer>
   {value => {
-  const {cart, increment, decrement, removeItem, cartSubTotal, cartTax, cartTotal} = value
-  
+    const {cart, increment, decrement, removeItem, cartSubTotal, cartTax, cartTotal} = value
+    
+    
   if(cart.length===0){
     return(
     <Paper className={classes.Paper} style={{textAlign:'center'}}>
@@ -101,41 +102,10 @@ const Cart = () => {
             spacing={1}
             direction="row"
             alignItems="center"
-            children={<>
-            <Grid container justify="flex-end" children={<>
-            <Grid item children={
-              <Typography 
-                children='Subtotal:'
-                variant="h5" 
-                color="initial"/>}/>
-            <Grid item children={
-              <Typography
-                variant="h6"
-                color="initial"
-                children={'$'+ cartSubTotal.toFixed(2)}/>}/></>}/>
-            <Grid container justify="flex-end"  children={<>
-            <Grid item children={
-              <Typography 
-                children='Tax:'
-                variant="h5" 
-                color="initial"/>}/>
-            <Grid item children={
-              <Typography
-                variant="h6"
-                color="initial"
-                children={'$'+ cartTax.toFixed(2)}/>}/></>}/>
-            <Grid container justify="flex-end" children={<>
-            <Grid item children={
-              <Typography 
-                children='Total:'
-                variant="h5" 
-                color="initial"/>}/>
-            <Grid item children={
-              <Typography
-                variant="h5"
-                color="primary"
-                children={'$'+ cartTotal.toFixed(2)}/>}/></>}/>
-          </>}/>
+            children={
+              <CartTotals />
+            }
+            />
         </Grid>
         </ListItem>
       </List>

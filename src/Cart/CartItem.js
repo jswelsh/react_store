@@ -41,31 +41,32 @@ function CartItem({
   }) {
   const classes = useStyles()
 
-  const components = [(
+  const components = [
     <ListItemAvatar children={
-      <Avatar alt="" src={img}/>}/>),(
+      <Avatar alt="" src={img}/>}/>,
     <div className={classes.Title}>
       <ListItemText primary={title} />
-    </div>),(<>
-    <IconButton
-      children={<RemoveIcon />}
-      onClick={()=>decrement(id)}
-      size='small'/>
-    <Button
-      style={{color:'black'}}
-      disabled={true}
-      children={count}/>
-    <IconButton
-      children={<AddIcon />}
-      onClick={()=>increment(id)}
-      size='small'/>
-    </>),(
+    </div>,
+    <>
+      <IconButton
+        children={<RemoveIcon />}
+        onClick={()=>decrement(id)}
+        size='small'/>
+      <Button
+        style={{color:'black'}}
+        disabled={true}
+        children={count}/>
+      <IconButton
+        children={<AddIcon />}
+        onClick={()=>increment(id)}
+        size='small'/>
+    </>,
       <Typography
-        children={'$'+price} />),(
+        children={'$'+price} />,
       <IconButton 
         children={<CancelIcon />}
         onClick={()=>removeItem(id)}
-        size='small'/>)
+        size='small'/>
     ]
   return (<>
   <ListItem
