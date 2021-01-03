@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
+import { useLocation } from 'react-router-dom'
 
 import { Link } from "react-router-dom"
 import SvgBrushFireIcon from './SvgBrushFireIcon'
@@ -24,29 +25,41 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 const NaviBar = () => {
-  const classes = useStyles();
+  const location = useLocation()
+  const classes = useStyles()
+  console.log(location.pathname)
   return (
   <AppBar position="static" color="primary">
     <Toolbar>
-      <Button
+      <Button 
         children={
         <Typography
           children='brushfire'
           variant="h6"/>}
-      startIcon={ <SvgBrushFireIcon />}
-      component={Link}
-      color="inherit"
-      to={'/'}
-      edge="start"
-      aria-label="menu" />
-      <div className={classes.toolbarButtons}>
+        startIcon={ <SvgBrushFireIcon />}
+        component={Link}
+        color="inherit"
+        to={'/'}
+        edge="start"
+        aria-label="menu" />
+        <div className={classes.toolbarButtons}>
+        {location.pathname !== '/cart' ?
+      (
       <Button
         children='cart'
         startIcon={<SvgCart />}
         component={Link}
         variant="outlined"
         color='inherit'
-        to={'/cart'}/>
+        to={'/cart'}/>) 
+      : (
+      <Button
+        children='Products'
+        component={Link}
+        variant="outlined"
+        color='inherit'
+        to={'/'}/>)}
+        
     </div>
     </Toolbar>
   </AppBar>
