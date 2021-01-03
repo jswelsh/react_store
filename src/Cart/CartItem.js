@@ -9,7 +9,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Typography,
-  Grid 
+  Grid
 } from '@material-ui/core'
 
 import AddIcon from '@material-ui/icons/Add'

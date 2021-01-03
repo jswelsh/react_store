@@ -1,25 +1,31 @@
-// import { useState } from 'react'
-import { List, Paper, Button, ListItem, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import {ProductConsumer} from '../context'
 import { Link } from "react-router-dom"
-import {CartTotals} from './CartTotals'
-import {EmptyCart} from './EmptyCart'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
+import {
+  List,
+  Paper,
+  Button,
+  ListItem,
+  Typography,
+  Grid
+} from '@material-ui/core'
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+
+import { ProductConsumer } from '../context'
+import { CartTotals } from './CartTotals'
+import { EmptyCart } from './EmptyCart'
 import { CartItem } from './CartItem'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-  },
   Paper:{
+    backgroundColor: theme.palette.background.paper,
     margin: theme.spacing(6),
     padding: theme.spacing(3, 2, 1),
     width: '90%',
   },
   Header:{
-    marginLeft:'20px'
+    margin: theme.spacing(0, 3, 3)
   }
 }))
 

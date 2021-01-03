@@ -1,6 +1,10 @@
 import React from 'react'
-import { Typography, Grid } from '@material-ui/core'
-import {ProductConsumer} from '../context'
+import { ProductConsumer } from '../context'
+
+import {
+  Typography,
+  Grid
+} from '@material-ui/core'
 
 const totalsConstructor = (cartSubTotal,cartTax,cartTotal) => (
 {

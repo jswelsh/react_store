@@ -1,8 +1,13 @@
-import React from "react"
-import { Paper, Button, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { Link } from "react-router-dom"
+
+import {
+  Paper,
+  Button,
+  Typography
+} from '@material-ui/core'
+
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 const useStyles = makeStyles((theme) => ({
