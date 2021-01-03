@@ -16,11 +16,15 @@ import {
   Button,
   Divider,
   Paper,
-  Modal
+  Card,
+  Modal,
+  CardHeader,
+  CardContent
 } from '@material-ui/core'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import SvgCart from './SvgCart'
+import { MoreVert as MoreVertIcon } from '@material-ui/icons'
 
 const getModalStyle =() => ({
   position: 'absolute',
@@ -35,13 +39,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign:'center',
     position: 'absolute',
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    // border: '3px solid rgba(63, 81, 181,0.8)',
+    outline:0,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  Title: {
-    // width:'100%',
-    textAlign: 'center'
+    width:500
+    // padding: theme.spacing(4, 4, 3),
   },
   overlay: {
     position: 'absolute',
@@ -72,7 +74,8 @@ const useStyles = makeStyles((theme) => ({
     margin:16
   },
   price:{
-    color: theme.palette.primary.dark
+    color: theme.palette.primary.dark,
+    paddingBottom: theme.spacing(3),
   }
 }))
 const ColorButton = withStyles((theme) => ({
@@ -86,46 +89,53 @@ const Body = React.forwardRef(({title, price, img, handleClose}, ref) => {
   const classes = useStyles()
   const [modalStyle] = React.useState(getModalStyle)
   return (
-  <Paper style={modalStyle} className={classes.paper} ref={ref}>
-    <Typography
-      children='Item Added To Cart'
-      variant='h4'/>
-      <Divider />
-    <img
-      src={img}
-      alt={title}/>
-    <Typography
-      children={title}
-      variant='h5'/>
-    <Typography
-      children={`PRICE: $${price}`}
-      className={classes.price}
-      variant='h6'/>
-    <Button
-      children='back to products'
-      style={{ margin: 8, padding:12}}
-      variant='contained'
-      onClick={() => handleClose()}
-      color='primary'/>
-  </Paper>
+  <Card style={modalStyle} className={classes.paper} ref={ref}>
+    <CardHeader
+      style={{ background:'#3f51b5'}}
+      title={ <Typography
+        style={{ fontWeight: 800, padding: '16px', color: '#fff'}}
+        children='Item Added To Cart'
+        variant='h4'/>}/>
+    <CardContent 
+      style={{ paddingBottom:'32px'}}
+      >
+      <img
+        src={img}
+        alt={title}/>
+      <Typography
+        children={title}
+        variant='h5'/>
+      <Typography
+        children={`PRICE: $${price}`}
+        className={classes.price}
+        variant='h6'/>
+      <Button
+        children='to products'
+        style={{ margin: 8, padding:12}}
+        variant='contained'
+        onClick={() => handleClose()}
+        color='inherit'/>
+      <Button
+        children='to cart'
+        style={{ margin: 8, padding:12}}
+        startIcon={<SvgCart color='#fff'/>}
+        component={Link}
+        variant="contained"
+        color='primary'
+        to={'/cart'}/>
+    </CardContent>
+  </Card>
   )
 })
 const Product = ({product}) => {
   const classes = useStyles()
   const {title, price, img, id, inCart} = product
-
-    // getModalStyle is not a pure function, we roll the style only on the first render
-  
   const [open, setOpen] = React.useState(false)
 
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   const ref = React.createRef()
+
   return (
   <ProductConsumer> 
   {value => (
@@ -147,7 +157,7 @@ const Product = ({product}) => {
       className={clsx(classes.overlay, classes.Left)}
       variant='h3'/>
     <IconButton
-      children={ inCart ? <SvgCart /> : <AddShoppingCartIcon />}
+      children={ inCart ? <SvgCart color='rgba(63, 81, 181,0.8)'/> : <AddShoppingCartIcon />}
       onClick={()=>{
         value.addToCart(id)
         handleOpen()
