@@ -1,6 +1,7 @@
 
 import {Link} from 'react-router-dom'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import SvgCart from './SvgCart'
 import {ProductConsumer} from '../context'
 import { Grid, Typography, Container, Button } from '@material-ui/core'
 
@@ -52,8 +53,9 @@ const ProductDetails = () => {
                 color={inCart ? 'primary' : 'default'}
                 to={'/'}/>
               <Button
-                startIcon={<AddShoppingCartIcon />}
-                children={inCart ? 'already in cart' : 'add to cart'}
+                startIcon={!inCart && <AddShoppingCartIcon />}
+                endIcon={inCart && <SvgCart/> }
+                children={inCart ? 'in cart' : 'add to cart'}
                 style={{ margin: 8, padding:12}}
                 disabled={inCart}
                 variant='contained'
