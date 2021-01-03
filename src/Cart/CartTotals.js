@@ -36,9 +36,7 @@ const totalsConstructor = (cartSubTotal,cartTax,cartTotal) => (
   ]
 }
 )
-
-export default function CartTotals() {
-
+const CartTotals = () => {
   return (
   <ProductConsumer>
   {value => {
@@ -60,3 +58,4 @@ export default function CartTotals() {
   </ProductConsumer>
   )
 }
+export {CartTotals}
