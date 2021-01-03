@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import { Link } from "react-router-dom"
 import {ProductConsumer} from '../context'
 
+import { borders } from '@material-ui/system'
+
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { blue } from '@material-ui/core/colors'
 
@@ -11,15 +13,13 @@ import PropTypes from 'prop-types'
 import {
   GridListTileBar,
   GridListTile,
+  CardContent,
+  CardHeader,
   Typography,
   IconButton,
   Button,
-  Divider,
-  Paper,
-  Card,
   Modal,
-  CardHeader,
-  CardContent
+  Card,
 } from '@material-ui/core'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
@@ -33,11 +33,12 @@ const getModalStyle =() => ({
   transform: `translate(-50%, -50%)`
 })
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     textAlign:'center',
     position: 'absolute',
+    borderRadius:'2%',
+    
     backgroundColor: theme.palette.background.paper,
     // border: '3px solid rgba(63, 81, 181,0.8)',
     outline:0,
@@ -59,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
       boxShadow: 'none',
     },
   },
+  Title:{
+    color: theme.palette.text.secondary
+  },
   inCart: {
     color:'rgba(63, 81, 181,0.8)',
   },
@@ -75,7 +79,10 @@ const useStyles = makeStyles((theme) => ({
   },
   price:{
     color: theme.palette.primary.dark,
+    // paddingBottom: theme.spacing(1),
     paddingBottom: theme.spacing(3),
+  },
+  details:{
   }
 }))
 const ColorButton = withStyles((theme) => ({
@@ -85,7 +92,12 @@ const ColorButton = withStyles((theme) => ({
   },
 }))(Button)
 
-const Body = React.forwardRef(({title, price, img, handleClose}, ref) => {
+/* <Typography
+        style={{ fontWeight: 800, padding: '16px', color: '#fff'}}
+        children='Item Added To Cart'
+        variant='h4'/> */
+
+const Body = React.forwardRef(({title, price, img, handleClose, id, handleDetail}, ref) => {
   const classes = useStyles()
   const [modalStyle] = React.useState(getModalStyle)
   return (
@@ -93,18 +105,32 @@ const Body = React.forwardRef(({title, price, img, handleClose}, ref) => {
     <CardHeader
       style={{ background:'#3f51b5'}}
       title={ <Typography
-        style={{ fontWeight: 800, padding: '16px', color: '#fff'}}
-        children='Item Added To Cart'
-        variant='h4'/>}/>
+        className={classes.Title}
+        children='Nice!'
+        variant='subtitle1'/>}
+        subheader={<Typography
+          style={{ fontWeight: 800, color: '#fff'}}
+          children='Item Added To Cart'
+          variant='h4'/> }/>
     <CardContent 
-      style={{ paddingBottom:'32px'}}
-      >
+      style={{ paddingBottom:'32px'}}>
       <img
         src={img}
         alt={title}/>
       <Typography
         children={title}
         variant='h5'/>
+      <Link 
+        onClick={() => {
+        handleDetail(id) }}
+        style={{ textDecoration: 'none' }}
+        to='/product_details'
+        children={
+        <Typography
+        className={classes.details}
+          color='textPrimary'
+          children='DETAILS'
+          variant='subtitle2'/>}/>
       <Typography
         children={`PRICE: $${price}`}
         className={classes.price}
@@ -174,7 +200,9 @@ const Product = ({product}) => {
       onClose={handleClose}>
       {<Body
         handleClose={handleClose}
+        handleDetail={value.handleDetail}
         ref={ref}
+        id={id}
         title={title}
         price={price}
         img={img}
@@ -188,14 +216,7 @@ const Product = ({product}) => {
         <Typography
           children={title}
           variant='h5'/>}
-          subtitle={<Typography />}
-          /* actionIcon={
-          <Link
-            style={{ textDecoration: 'none' }}
-            to='/product_details'>
-        <ColorButton
-          children='details'
-          variant="outlined"/></Link>} *//>
+          subtitle={<Typography />}/>
   </GridListTile>
   )}
   </ProductConsumer>
