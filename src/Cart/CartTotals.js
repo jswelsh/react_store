@@ -3,11 +3,19 @@ import { ProductConsumer } from '../context'
 
 import {
   Typography,
-  Grid
+  Grid,
+  Button
 } from '@material-ui/core'
 
-const totalsConstructor = (cartSubTotal,cartTax,cartTotal) => (
-{
+const totalsConstructor = (cartSubTotal,cartTax,cartTotal, clearCart) => (
+{ 
+  Buttons: [
+    <Button
+      children='clear cart'
+      onClick={clearCart}
+      color='secondary'
+      variant='outlined'/>
+  ],
   Subtotal: [
     <Typography
       children='Subtotal:'
@@ -44,10 +52,10 @@ const CartTotals = () => {
   return (
   <ProductConsumer>
   {value => {
-    const {cartSubTotal, cartTax, cartTotal} = value
+    const {cartSubTotal, cartTax, cartTotal, clearCart} = value
     return (
       Object
-      .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal))
+      .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal, clearCart))
       .map(([key, value]) => (
       <Grid
       container
