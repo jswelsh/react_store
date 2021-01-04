@@ -3,7 +3,35 @@ import { storeProducts, detailProduct } from "./data"
 
 const ProductContext = React.createContext({})
 // Provider // consumer
-
+  /* type IProductDetails = {
+    id:number
+    img:string
+    info:string
+    price:number
+    title:string
+    inCart:boolean
+  }
+  type IProduct = {
+    company:string
+    count:number
+    id:number
+    img:string
+    inCart:boolean
+    info:string
+    price:number
+    title:string
+    total:number
+  }
+  type IState = {
+    products:[number]
+    detailProduct:IProductDetails
+    cart:[IProduct]
+    modalOpen:boolean
+    modalProduct:IProductDetails
+    cartSubTotal:number
+    cartTax:number
+    cartTotal:number
+  } */
 class ProductProvider extends React.Component {
   state = {
     products: [],
@@ -49,7 +77,7 @@ class ProductProvider extends React.Component {
 
     const price = product.price
     product.total = price
-
+    console.log(product)
     this.setState(
       () => ({products: tempProducts, cart: [...this.state.cart, product] }),
       () => this.addTotals()
@@ -133,6 +161,12 @@ class ProductProvider extends React.Component {
   render() {
     return (
       <ProductContext.Provider
+        cartProp={{
+          cart: this.state.cart,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+        }}
         value={{
           ...this.state,
           handleDetail: this.handleDetail,

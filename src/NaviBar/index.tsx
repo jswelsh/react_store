@@ -25,17 +25,16 @@ const NaviBar = () => {
   return (
   <AppBar position="static" color="primary">
     <Toolbar>
-      <Button
-        children={
-        <Typography
-          children='brushfire'
-          variant="h6"/>}
-        startIcon={ <SvgBrushFireIcon />}
-        component={Link}
-        color="inherit"
-        to={'/'}
-        edge="start"
-        aria-label="menu" />
+        <Button
+          children={
+          <Typography
+            children='brushfire'
+            variant="h6"/>}
+          component={Link}
+          to={'/'}
+          startIcon={ <SvgBrushFireIcon />}
+          color="inherit"
+          />
       <div className={classes.toolbarButtons}>
       {location.pathname !== '/cart' 
       ? <Button

@@ -1,3 +1,4 @@
+import {FC} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import {
@@ -19,13 +20,26 @@ import CancelIcon from '@material-ui/icons/Cancel'
 const useStyles = makeStyles((theme) => ({
   Title:{ width:150}
 }))
+type IProduct = {
+  id:number
+  img:string
+  title:string
+  price:number
+  count:number
+}
+type ICartItem = {
+  product:IProduct
+  increment:(id: number) => void
+  decrement:(id: number) => void
+  removeItem:(id: number) => void
+}
 
-function CartItem({
+const CartItem: FC<ICartItem> = ({
   product,
   increment,
   decrement,
   removeItem
-  }) {
+  }) => {
   const classes = useStyles()
   const {id, img, title, price, count} = product
   const components = [

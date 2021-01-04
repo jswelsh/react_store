@@ -11,12 +11,20 @@ import {
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import SvgCart from './SvgCart'
-
+/* type IProductDetails = {
+  id:number
+  img:string
+  info:string
+  price:number
+  title:string
+  inCart:boolean
+} */
 const ProductDetails = () => {
   return (
   <ProductConsumer>
   {value => {
-    const { id, company, img, info, price, title, inCart } = value.detailProduct
+    const { id, /* company, */ img, info, price, title, inCart } :IProductDetails = value.detailProduct
+    const addToCart = value.addToCart
     return (
     <Grid
       container
@@ -63,11 +71,11 @@ const ProductDetails = () => {
                 startIcon={!inCart && <AddShoppingCartIcon />}
                 endIcon={inCart && <SvgCart/> }
                 children={inCart ? 'in cart' : 'add to cart'}
-                style={{ margin: 8, padding:12}}
                 disabled={inCart}
+                style={{ margin: 8, padding:12}}
                 variant='contained'
                 color='primary'
-                onClick={()=> value.addToCart(id) }
+                onClick={()=> addToCart(id) }
                 // fullWidth={true}
                 /> 
                 </>}/>

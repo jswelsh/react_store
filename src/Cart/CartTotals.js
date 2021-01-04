@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { ProductConsumer } from '../context'
 
 import {
@@ -7,7 +7,15 @@ import {
   Button
 } from '@material-ui/core'
 
-const totalsConstructor = (cartSubTotal,cartTax,cartTotal, clearCart) => (
+
+/* type ITotalsConstructor = {
+  cartSubTotal:(id: number) => void
+  cartTax:(id: number) => void
+  cartTotal:(id: number) => void
+  clearCart:(id: number) => void
+} */
+
+const totalsConstructor = (cartSubTotal, cartTax, cartTotal, clearCart) => (
 { 
   Buttons: [
     <Button

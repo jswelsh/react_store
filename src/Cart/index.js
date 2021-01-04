@@ -29,12 +29,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
+/* type ICart = {
+  cart:[number]
+  increment:(id: number) => void
+  decrement:(id: number) => void
+  removeItem:(id: number) => void
+} */
 const Cart = () => {
 const classes = useStyles()
   return (
   <ProductConsumer>
   {value => {
-  const {cart, increment, decrement, removeItem} = value
+  const { cart, increment, decrement, removeItem } = value
 
   return (
   cart.length === 0
