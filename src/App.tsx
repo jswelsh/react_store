@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import {ProductProvider} from './context'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -31,7 +32,7 @@ function App() {
   return (
     <ProductProvider>
       <ThemeProvider theme={theme}>
-
+      <PayPalScriptProvider options={{ "client-id": "Aexft66O1doBttudqmCIsmLy7PhrEuQqU5vicFfRSvxRjJStXCJWpdZMBX85TYiM8B9MzaYfEfGojYWC" }}>
       <Router>
         <CssBaseline />
         <div className="App">
@@ -44,6 +45,7 @@ function App() {
         </Switch>
         </div>
       </Router>
+      </PayPalScriptProvider>
       </ThemeProvider>
     </ProductProvider>
   );

@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Link } from "react-router-dom"
 
 import {
@@ -17,6 +18,7 @@ import { ProductContext } from '../context'
 import { CartTotals } from './CartTotals'
 import { EmptyCart } from './EmptyCart'
 import { CartItem } from './CartItem'
+import { PayPalButton } from './PayPalButton'
 
 const useStyles = makeStyles((theme) => ({
   Paper:{
@@ -31,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Cart = () => {
-  const { cart, increment, decrement, removeItem } = React.useContext(ProductContext) as ContextType
-const classes = useStyles()
+  const { cart, increment, decrement, removeItem, clearCart } = React.useContext(ProductContext) as ContextType
+  const classes = useStyles()
+  const matched = useMediaQuery('(min-width:600px)')
 
   return (
   cart.length === 0
@@ -52,21 +55,32 @@ const classes = useStyles()
           removeItem={removeItem}/>))}
         <ListItem>
           <Grid container direction="row">
-            <Grid xs={8} item children={
-              <Button
-                children='continue shopping'
-                startIcon={<ArrowBackIcon />}
-                component={Link}
-                // variant="outlined"
-                color='primary'
-                to={'/'}/>}/>
+            <Grid xs={5} justify="space-between" spacing={2} item container >
+              <Grid lg={6} md={12} sm={12} xs={12} item children={
+                <Button
+                  children={matched ? 'continue shopping' :'to products' }
+                  startIcon={ matched ? <ArrowBackIcon /> : null}
+                  component={Link}
+                  // variant="outlined"
+                  color='primary'
+                  fullWidth={true}
+                  to={'/'}/>}/>
+{/*               <Grid lg={6} md={12} sm={12} xs={12} item children={
+                <Button
+                  children='clear cart'
+                  onClick={clearCart}
+                  color='secondary'
+                  fullWidth={true}
+                  variant='outlined'/>}/> */}
+              <Grid xs={12} item children={ <PayPalButton />}/>
+            </Grid>
             <Grid
-              xs={4}
+              xs={7}
               item
               container
-              spacing={1}
-              direction="row"
-              alignItems="center"
+              direction="column"
+              justify="flex-start"
+              alignItems="flex-end"
               children={<CartTotals />}/>
           </Grid>
         </ListItem>
