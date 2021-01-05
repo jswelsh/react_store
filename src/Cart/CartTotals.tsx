@@ -11,23 +11,8 @@ const totalsConstructor = (
   cartSubTotal:number,
   cartTax:number,
   cartTotal:number,
-  // clearCart:() => void
 ) => (
 {
-/*   Buttons: [ */
-    // @ts-ignore
-/*     <Button
-      children='clear cart'
-      onClick={clearCart}
-      color='secondary'
-      fullWidth={true}
-      variant='outlined'/> */
-/*     <Button
-      children='clear cart'
-      onClick={clearCart}
-      color='secondary'
-      variant='outlined'/> */
-/*   ], */
   Subtotal: [
     <Typography
       children='Subtotal:'
@@ -80,18 +65,23 @@ const CartTotals = () => {
       fullWidth={true}
       variant='outlined'/>}/>}/>
   {Object
-    .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal, /* clearCart */))
+    .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal))
     .map(([key, value]) => (
       <Grid
       container
       item
       justify="flex-end"
       alignItems="flex-start"
-      style={{'textAlign': 'right'}} 
+      style={{'textAlign': 'right'}}
       children={
         <>
         {value.map(
-          component => (<Grid style={{'marginTop':'8px'}} xs={5} item children={component}/>))}
+          component => (
+            <Grid
+              style={{'marginTop':'8px'}}
+              xs={5} 
+              item 
+              children={component}/>))}
       </>}/>
     ))}
     </>
