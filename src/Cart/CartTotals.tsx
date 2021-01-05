@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProductConsumer } from '../context'
+import { ProductContext } from '../context'
 
 import {
   Typography,
@@ -7,9 +7,15 @@ import {
   Button
 } from '@material-ui/core'
 
-const totalsConstructor = (cartSubTotal,cartTax,cartTotal, clearCart) => (
-{ 
+const totalsConstructor = (
+  cartSubTotal:number,
+  cartTax:number,
+  cartTotal:number,
+  clearCart:(id: number) => void 
+) => (
+{
   Buttons: [
+    // @ts-ignore
     <Button
       children='clear cart'
       onClick={clearCart}
@@ -49,14 +55,12 @@ const totalsConstructor = (cartSubTotal,cartTax,cartTotal, clearCart) => (
 }
 )
 const CartTotals = () => {
-  return (
-  <ProductConsumer>
-  {value => {
-    const {cartSubTotal, cartTax, cartTotal, clearCart} = value
-    return (
-      Object
-      .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal, clearCart))
-      .map(([key, value]) => (
+  const { cartSubTotal, cartTax, cartTotal, clearCart } = React.useContext(ProductContext) as ContextType
+
+  return (<>{
+    Object
+    .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal, clearCart))
+    .map(([key, value]) => (
       <Grid
       container
       justify="flex-end"
@@ -64,10 +68,8 @@ const CartTotals = () => {
         {value.map(
           component => (<Grid item children={component}/>))}
       </>}/>
-    )
-    ))
-  }}
-  </ProductConsumer>
+    ))}
+    </>
   )
 }
 export {CartTotals}

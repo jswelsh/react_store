@@ -1,3 +1,4 @@
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from "react-router-dom"
 
@@ -12,7 +13,7 @@ import {
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import { ProductConsumer } from '../context'
+import { ProductContext } from '../context'
 import { CartTotals } from './CartTotals'
 import { EmptyCart } from './EmptyCart'
 import { CartItem } from './CartItem'
@@ -30,11 +31,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Cart = () => {
+  const { cart, increment, decrement, removeItem } = React.useContext(ProductContext) as ContextType
 const classes = useStyles()
-  return (
-  <ProductConsumer>
-  {value => {
-  const {cart, increment, decrement, removeItem} = value
 
   return (
   cart.length === 0
@@ -73,9 +71,7 @@ const classes = useStyles()
           </Grid>
         </ListItem>
       </List>
-    </Paper>)
-  }}
-  </ProductConsumer>
+    </Paper>
   )
 }
 
