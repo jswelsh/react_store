@@ -1,10 +1,11 @@
-import { useState, createRef } from 'react'
+import React, { useState, createRef, FC } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { Link } from "react-router-dom"
 import { ProductConsumer } from '../context'
 import { ModalBody } from './ModalBody'
 import PropTypes from 'prop-types'
+import { ProductContext } from '../context'
 
 import {
   GridListTileBar,
@@ -56,8 +57,11 @@ const useStyles = makeStyles((theme) => ({
     margin:16
   },
 }))
+type IProductProps = {
+  product: IProduct
+}
 
-const Product = ({product}) => {
+const Product: React.FC<IProductProps> = ({product}) => {
   const classes = useStyles()
   const {title, price, img, id, inCart} = product
   const [open, setOpen] = useState(false)
@@ -65,10 +69,8 @@ const Product = ({product}) => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const ref = createRef()
-
+  const { handleDetail, addToCart } = React.useContext(ProductContext) as ContextType
   return (
-  <ProductConsumer>
-  {value => (
   <GridListTile
     className={classes.GridListTile}
     key={id}
@@ -79,7 +81,7 @@ const Product = ({product}) => {
       children={
       <img
         onClick={() => {
-        value.handleDetail(id) }}
+        /* value. */handleDetail(id) }}
         src={img}
         alt={title}/>}/>
     <Typography
@@ -89,13 +91,15 @@ const Product = ({product}) => {
           classes.overlay,
           classes.Left)}
       variant='h3'/>
+      {/*
+      // @ts-ignore */}
     <IconButton
       children={
         inCart
         ? <SvgCart color='rgba(63, 81, 181,0.8)'/> 
         : <AddShoppingCartIcon />}
       onClick={()=>{
-        value.addToCart(id)
+        addToCart(id)
         handleOpen()
       }}
       variant="contained"
@@ -109,24 +113,20 @@ const Product = ({product}) => {
       children={
       <ModalBody
         handleClose={handleClose}
-        handleDetail={value.handleDetail}
+        handleDetail={handleDetail}
         ref={ref}
         id={id}
         title={title}
         price={price}
         img={img}/>}/>
     <GridListTileBar
-      classes={{
-        root: classes.titleBar,
-        title: classes.TileTitle}}
+      className={classes.titleBar}
         title={
         <Typography
           children={title}
           variant='h5'/>}
           subtitle={<Typography />}/>
   </GridListTile>
-  )}
-  </ProductConsumer>
   )
 }
 

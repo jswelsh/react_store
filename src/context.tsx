@@ -1,18 +1,8 @@
 import React, { useState, useEffect, FC } from "react"
 import { storeProducts, detailProductData } from "./data"
 
-const ProductContext = React.createContext({})
-  type IProduct = {
-    company:string
-    count:number
-    id:number
-    img:string
-    inCart:boolean
-    info:string
-    price:number
-    title:string
-    total:number
-  }
+export const ProductContext = React.createContext<ContextType | null>(null)
+
 const ProductProvider: FC<React.ReactNode> = ({children}) => {
 
   const [products, setProducts] = useState <IProduct[]> ([])
@@ -37,8 +27,9 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
   const getItem = (id:number) => (
     products.find(item => item.id === id))
 
-  const handleDetail = (id:number) => (
-    setDetailProduct(getItem(id)!))
+  const handleDetail = (id:number) => {
+    setDetailProduct(getItem(id)!)
+  }
 
   const addToCart = (id:number) => {
     const tempProducts = [...products]
