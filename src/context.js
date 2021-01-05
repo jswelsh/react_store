@@ -1,5 +1,5 @@
-import React from "react"
-import { storeProducts, detailProduct } from "./data"
+import React, { useState, useEffect } from "react"
+import { storeProducts, detailProductData } from "./data"
 
 const ProductContext = React.createContext({})
 // Provider // consumer
@@ -32,7 +32,7 @@ const ProductContext = React.createContext({})
     cartTax:number
     cartTotal:number
   } */
-class ProductProvider extends React.Component {
+/* class ProductProvider extends React.Component {
   state = {
     products: [],
     detailProduct: detailProduct,
@@ -42,12 +42,10 @@ class ProductProvider extends React.Component {
     cartSubTotal: 0,
     cartTax: 0,
     cartTotal: 0
-  }
 
   componentDidMount() {
     this.setProducts()
   }
-
   setProducts = () => {
     let tempProducts = []
     storeProducts.forEach(item => {
@@ -98,7 +96,6 @@ class ProductProvider extends React.Component {
       () => this.addTotals()
     )
   }
-
   decrement = id => {
     let tempCart = [...this.state.cart]
     const selectedProduct = tempCart.find(item => item.id === id)
@@ -137,15 +134,14 @@ class ProductProvider extends React.Component {
     )
   }
 
-  clearCart = () => {
+    clearCart = () => {
     console.log("cart was cleared")
     this.setState(
       () => ({ cart: [] }),
       () => this.setProducts()
     )
   }
-
-  addTotals = () => {
+    addTotals = () => {
     let subTotal = 0
     this.state.cart.map(item => (subTotal += item.total))
     const tempTax = subTotal * 0.18
@@ -157,30 +153,141 @@ class ProductProvider extends React.Component {
       cartTotal: total
     }))
   }
+  } */
+const ProductProvider = ({children}) => {
+  const [products, setProducts] = useState([])
+  const [detailProduct, setDetailProduct] = useState(detailProductData)
+  const [cart, setCart] = useState([])
+  const [cartSubTotal, setCartSubTotal] = useState(0)
+  const [cartTax, setCartTax] = useState(0)
+  const [cartTotal, setCartTotal] = useState(0)
 
-  render() {
-    return (
-      <ProductContext.Provider
-        cartProp={{
-          cart: this.state.cart,
-          increment: this.increment,
-          decrement: this.decrement,
-          removeItem: this.removeItem,
-        }}
-        value={{
-          ...this.state,
-          handleDetail: this.handleDetail,
-          addToCart: this.addToCart,
-          increment: this.increment,
-          decrement: this.decrement,
-          removeItem: this.removeItem,
-          clearCart: this.clearCart
-        }}
-      >
-        {this.props.children}
-      </ProductContext.Provider>
-    )
+  useEffect(() => {
+    setProductsHandler()
+  },[])
+
+  const setProductsHandler = () => {
+    let tempProducts = []
+    storeProducts.forEach(item => {
+      const singleItem = { ...item }
+      tempProducts = [...tempProducts, singleItem]
+    })
+    setProducts(tempProducts)
   }
+  const getItem = id => {
+    const product = products.find(item => item.id === id)
+    return product
+  }
+  const handleDetail = id => {
+    const product = getItem(id)
+    setDetailProduct(product)
+  }
+  const addToCart = id => {
+    let tempProducts = [...products]
+    const index = tempProducts.indexOf(getItem(id))
+    const product = tempProducts[index]
+
+    product.inCart = true
+    product.count = 1
+
+    const price = product.price
+    product.total = price
+    console.log(product)
+
+    setProducts(tempProducts)
+    setCart([...cart, product])
+    addTotals()
+  }
+
+  const increment = id => {
+    let tempCart = [...cart]
+    const selectedProduct = tempCart.find(item => item.id === id)
+    const index = tempCart.indexOf(selectedProduct)
+    const product = tempCart[index]
+
+    product.count = product.count + 1
+    product.total = product.count * product.price
+
+    setCart([...tempCart])
+    addTotals()
+  }
+
+  const decrement = id => {
+    let tempCart = [...cart]
+    const selectedProduct = tempCart.find(item => item.id === id)
+    const index = tempCart.indexOf(selectedProduct)
+    const product = tempCart[index]
+
+    product.count = product.count - 1
+    if (product.count === 0) {
+      removeItem(id)
+    } else {
+      product.total = product.count * product.price
+      setCart([...tempCart])
+      addTotals()
+    }
+  }
+
+  const removeItem = id => {
+    let tempProducts = [...products]
+    let tempCart = [...cart]
+
+    tempCart = tempCart.filter(item => item.id !== id)
+
+    const index = tempProducts.indexOf(getItem(id))
+    let removedProduct = tempProducts[index]
+    removedProduct.inCart = false
+    removedProduct.count = 0
+    removedProduct.total = 0
+
+    setCart(...tempCart)
+    setProducts([...tempProducts])
+    addTotals()
+  }
+
+  const clearCart = () => {
+    console.log("cart was cleared")
+    setCart([])
+    setProductsHandler()
+  }
+
+  const addTotals = () => {
+    let subTotal = 0
+    cart.map(item => (subTotal += item.total))
+    const tempTax = subTotal * 0.18
+    const tax = parseFloat(tempTax.toFixed(2))
+    const total = subTotal + tax
+    setCartSubTotal(subTotal)
+    setCartTax(tax)
+    setCartTotal(total)
+  }
+
+  return (
+  <ProductContext.Provider
+/*       cartProp={{
+      cart: this.state.cart,
+      increment: this.increment,
+      decrement: this.decrement,
+      removeItem: this.removeItem,
+    }} */
+    value={{
+      products: products,
+      detailProduct: detailProduct,
+      cart: cart,
+      cartSubTotal: cartSubTotal,
+      cartTax: cartTax,
+      cartTotal: cartTotal,
+      handleDetail: handleDetail,
+      addToCart: addToCart,
+      increment: increment,
+      decrement: decrement,
+      removeItem: removeItem,
+      clearCart: clearCart
+    }}>
+    {children}
+  </ProductContext.Provider>
+)
+
 }
 const ProductConsumer = ProductContext.Consumer
 
