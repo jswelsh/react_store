@@ -10,7 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { NaviBar } from './NaviBar'
 import { Products } from './Products'
-import { ProductDetails } from './ProductDetails/index.js'
+import { ProductDetails } from './ProductDetails/index'
 import { Cart } from './Cart/index'
 import { Default } from './Default'
 

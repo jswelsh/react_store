@@ -5,7 +5,7 @@ export const ProductContext = React.createContext<ContextType | null>(null)
 
 const ProductProvider: FC<React.ReactNode> = ({children}) => {
 
-  const [products, setProducts] = useState <IProduct[]> ([])
+  const [products, setProducts] = useState <IProduct[]> ([detailProductData])
   const [detailProduct, setDetailProduct] = useState <IProduct> (detailProductData)
   const [cart, setCart] = useState <IProduct[]> ([])
   const [cartSubTotal, setCartSubTotal] = useState <number> (0)
@@ -101,6 +101,7 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
     const tempTax = subTotal * 0.18
     const tax = parseFloat(tempTax.toFixed(2))
     const total = subTotal + tax
+    console.log(typeof subTotal)
     setCartSubTotal(subTotal)
     setCartTax(tax)
     setCartTotal(total)

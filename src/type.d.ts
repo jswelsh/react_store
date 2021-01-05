@@ -9,6 +9,20 @@ type IProduct = {
   title:string
   total:number
 }
+type IProductDetails = {
+  id:number
+  img:string
+  info:string
+  price:number
+  title:string
+  inCart:boolean
+}
+type ICart = {
+  cart:[number]
+  increment:(id: number) => void
+  decrement:(id: number) => void
+  removeItem:(id: number) => void
+}
 
 type ContextType = {
   products:IProduct[]

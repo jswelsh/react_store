@@ -1,6 +1,6 @@
-
+import React from 'react'
+import { ProductContext } from '../context'
 import { Link } from 'react-router-dom'
-import { ProductConsumer } from '../context'
 
 import {
   Grid,
@@ -11,21 +11,11 @@ import {
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 import SvgCart from './SvgCart'
-/* type IProductDetails = {
-  id:number
-  img:string
-  info:string
-  price:number
-  title:string
-  inCart:boolean
-} */
+
 const ProductDetails = () => {
+  const { detailProduct, addToCart } = React.useContext(ProductContext) as ContextType
+  const { id, /* company, */ img, info, price, title, inCart } = detailProduct
   return (
-  <ProductConsumer>
-  {value => {
-    const { id, /* company, */ img, info, price, title, inCart } :IProductDetails = value.detailProduct
-    const addToCart = value.addToCart
-    return (
     <Grid
       container
       justify="center"
@@ -83,9 +73,6 @@ const ProductDetails = () => {
         </Container>
       </Grid>
     </Grid>
-    )
-  }}
-  </ProductConsumer>
   )
 }
 

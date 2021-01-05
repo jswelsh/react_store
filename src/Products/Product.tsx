@@ -1,4 +1,4 @@
-import React, { useState, createRef, FC } from 'react'
+import React, { useState, createRef } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { Link } from "react-router-dom"
@@ -112,6 +112,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
       onClose={handleClose}
       children={
       <ModalBody
+        // @ts-ignore
         handleClose={handleClose}
         handleDetail={handleDetail}
         ref={ref}
@@ -133,6 +134,7 @@ const Product: React.FC<IProductProps> = ({product}) => {
 export {Product}
 
 Product.propTypes = {
+  // @ts-ignore
   product:PropTypes.shape({
     id:PropTypes.number,
     img:PropTypes.string,

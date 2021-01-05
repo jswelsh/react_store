@@ -24,12 +24,13 @@ const Products = () => {
   return (
     <div className={classes.root}>
       <ProductConsumer>
-      {(contextStore) => (
+      {contextStore => (
       <GridList
-        col={2}
+        cols={2}
         spacing={24}
         className={classes.gridList}
         children={
+          // @ts-ignore
           contextStore.products
           .map((product) => (
             <Product product={product} />))
