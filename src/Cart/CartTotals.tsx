@@ -11,17 +11,8 @@ const totalsConstructor = (
   cartSubTotal:number,
   cartTax:number,
   cartTotal:number,
-  clearCart:(id: number) => void 
 ) => (
 {
-  Buttons: [
-    // @ts-ignore
-    <Button
-      children='clear cart'
-      onClick={clearCart}
-      color='secondary'
-      variant='outlined'/>
-  ],
   Subtotal: [
     <Typography
       children='Subtotal:'
@@ -51,22 +42,46 @@ const totalsConstructor = (
       variant="h5"
       color="primary"
       children={'$'+ cartTotal.toFixed(2)}/>
-  ]
+  ],
 }
 )
 const CartTotals = () => {
   const { cartSubTotal, cartTax, cartTotal, clearCart } = React.useContext(ProductContext) as ContextType
 
-  return (<>{
-    Object
-    .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal, clearCart))
+  return (<>
+  <Grid
+    item
+    justify="flex-end"
+    container
+    children={
+    <Grid
+    xs={6}
+    item
+    children={
+    <Button
+      children='clear cart'
+      onClick={clearCart}
+      color='secondary'
+      fullWidth={true}
+      variant='outlined'/>}/>}/>
+  {Object
+    .entries(totalsConstructor(cartSubTotal, cartTax, cartTotal))
     .map(([key, value]) => (
       <Grid
       container
+      item
       justify="flex-end"
-      children={<>
+      alignItems="flex-start"
+      style={{'textAlign': 'right'}}
+      children={
+        <>
         {value.map(
-          component => (<Grid item children={component}/>))}
+          component => (
+            <Grid
+              style={{'marginTop':'8px'}}
+              xs={5} 
+              item 
+              children={component}/>))}
       </>}/>
     ))}
     </>

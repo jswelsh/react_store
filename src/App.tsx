@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import {ProductProvider} from './context'
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -28,10 +29,12 @@ const theme = createMuiTheme({
   }, 
 }) 
 function App() {
+  const payPalKey = process.env.REACT_APP_PAY_PAL_KEY
+  console.log(process.env)
   return (
     <ProductProvider>
       <ThemeProvider theme={theme}>
-
+      <PayPalScriptProvider options={{ "client-id": payPalKey }}>
       <Router>
         <CssBaseline />
         <div className="App">
@@ -44,6 +47,7 @@ function App() {
         </Switch>
         </div>
       </Router>
+      </PayPalScriptProvider>
       </ThemeProvider>
     </ProductProvider>
   );

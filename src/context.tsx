@@ -39,7 +39,7 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
     product.inCart = true
     product.count = 1
     product.total = product.price
-
+    
     setProducts(tempProducts)
     setCart([...cart, product])
     addTotals()
@@ -101,11 +101,14 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
     const tempTax = subTotal * 0.18
     const tax = parseFloat(tempTax.toFixed(2))
     const total = subTotal + tax
-    console.log(typeof subTotal)
+
     setCartSubTotal(subTotal)
     setCartTax(tax)
     setCartTotal(total)
   }
+  useEffect(() => {
+    addTotals()
+  },[cart])
 
   return (
   <ProductContext.Provider
