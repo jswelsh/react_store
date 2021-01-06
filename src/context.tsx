@@ -40,10 +40,8 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
     product.count = 1
     product.total = product.price
     
-    console.log(product.price);
     setProducts(tempProducts)
     setCart([...cart, product])
-    console.log(cart)
     addTotals()
   }
 
@@ -103,7 +101,7 @@ const ProductProvider: FC<React.ReactNode> = ({children}) => {
     const tempTax = subTotal * 0.18
     const tax = parseFloat(tempTax.toFixed(2))
     const total = subTotal + tax
-    console.log('subTotal, tax, total', subTotal, tax, total)
+
     setCartSubTotal(subTotal)
     setCartTax(tax)
     setCartTotal(total)

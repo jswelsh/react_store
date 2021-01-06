@@ -29,10 +29,12 @@ const theme = createMuiTheme({
   }, 
 }) 
 function App() {
+  const payPalKey = process.env.REACT_APP_PAY_PAL_KEY
+  console.log(process.env)
   return (
     <ProductProvider>
       <ThemeProvider theme={theme}>
-      <PayPalScriptProvider options={{ "client-id": "Aexft66O1doBttudqmCIsmLy7PhrEuQqU5vicFfRSvxRjJStXCJWpdZMBX85TYiM8B9MzaYfEfGojYWC" }}>
+      <PayPalScriptProvider options={{ "client-id": payPalKey }}>
       <Router>
         <CssBaseline />
         <div className="App">
